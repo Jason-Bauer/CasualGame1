@@ -74,10 +74,10 @@ public class Tile : MonoBehaviour {
             else
             {
                 SwapSprite(previousSelected.render);
-                previousSelected.ClearAllMatches();
+                //previousSelected.ClearAllMatches();
 
                 previousSelected.Deselect(); // 4
-                ClearAllMatches();
+               // ClearAllMatches();
 
 
             }
@@ -93,9 +93,9 @@ public class Tile : MonoBehaviour {
         int temptype = render2.gameObject.GetComponent<Tile>().type;
         Sprite tempSprite = render2.sprite; // 3
         render2.sprite = render.sprite; // 4
-        render2.gameObject.GetComponent<Tile>().type = type;
+        render2.gameObject.GetComponent<Tile>().type = this.type;
         render.sprite = tempSprite; // 5
-        type=render2.gameObject.GetComponent<Tile>().type;
+        this.type = temptype;
     }
 
     private GameObject GetAdjacent(Vector2 castDir)

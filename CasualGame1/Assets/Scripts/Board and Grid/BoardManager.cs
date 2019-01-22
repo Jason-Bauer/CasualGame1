@@ -70,8 +70,26 @@ public class BoardManager : MonoBehaviour {
                 Sprite newSprite = possibleCharacters[rand];
                 newTile.GetComponent<Tile>().X = X;
                 newTile.GetComponent<Tile>().Y = Y;
-                newTile.GetComponent<Tile>().type = rand;
                 newTile.GetComponent<SpriteRenderer>().sprite = newSprite;
+                Debug.Log(newTile.GetComponent<SpriteRenderer>().sprite.name.ToString());
+               if(newTile.GetComponent<SpriteRenderer>().sprite.name.ToString() == "a")
+                {
+                    newTile.GetComponent<Tile>().type = 1;
+                }
+                else if (newTile.GetComponent<SpriteRenderer>().sprite.name.ToString() == "b")
+                {
+                    newTile.GetComponent<Tile>().type = 2;
+                }
+                else if (newTile.GetComponent<SpriteRenderer>().sprite.name.ToString() == "c")
+                {
+                    newTile.GetComponent<Tile>().type = 0;
+                }
+                else
+                {
+                    newTile.GetComponent<Tile>().type = 3;
+                }
+
+                
                 previousLeft[Y] = newSprite;
                 previousBelow = newSprite;
 
