@@ -108,9 +108,9 @@ public class BoardManager : MonoBehaviour {
 
     public void FindNullTiles()
     {
-        for (int x = xSize - 1; x > 0; x--)
+        for (int x = xSize - 1; x >= 0; x--)
         {
-            for (int y = ySize - 1; y > 0; y--)
+            for (int y = ySize - 1; y >= 0; y--)
             {
                 if (tiles[x, y].GetComponent<SpriteRenderer>().sprite == null)
                 {
@@ -123,7 +123,61 @@ public class BoardManager : MonoBehaviour {
 
     public void ShiftDown(int columnX, int x,int y)
     {
-        
+		//Make tiles fall
+		Tile tileCur = tiles [x, y].GetComponent<Tile> ();
+
+		for(int i = y; i< ySize-1; i++){
+			tiles [x, i].GetComponent<SpriteRenderer> ().sprite = tiles [x, i + 1].GetComponent<SpriteRenderer> ().sprite;
+			tiles [x, i].GetComponent<Tile> ().type = tiles [x, i + 1].GetComponent<Tile> ().type;
+
+			tiles [x, i + 1].GetComponent<SpriteRenderer> ().sprite = null;
+			tiles [x, i + 1].GetComponent<Tile> ().type = -1;
+
+			tileCur = tiles [x, i+1].GetComponent<Tile>();
+			//SwapSprite (tiles [x, y].GetComponent<SpriteRenderer> (), tiles [x, y + 1].GetComponent<SpriteRenderer> ());
+		}
+
+
+
+
+		//Adds Tiles where there were none
+		if(tiles[tileCur.X,tileCur.Y].GetComponent<SpriteRenderer>().sprite == null){
+			List<Sprite> possibleCharacters = new List<Sprite>(); 
+			possibleCharacters.AddRange(characters); 
+
+			int rand = Random.Range(0, possibleCharacters.Count);
+			Sprite newSprite = possibleCharacters[rand];
+			tiles[tileCur.X,tileCur.Y].GetComponent<SpriteRenderer>().sprite = newSprite;
+
+			if(tiles[tileCur.X,tileCur.Y].GetComponent<SpriteRenderer>().sprite.name.ToString() == "a")
+			{
+				tiles[tileCur.X,tileCur.Y].GetComponent<Tile>().type = 1;
+			}
+			else if (tiles[tileCur.X,tileCur.Y].GetComponent<SpriteRenderer>().sprite.name.ToString() == "b")
+			{
+				tiles[tileCur.X,tileCur.Y].GetComponent<Tile>().type = 2;
+			}
+			else if (tiles[tileCur.X,tileCur.Y].GetComponent<SpriteRenderer>().sprite.name.ToString() == "c")
+			{
+				tiles[tileCur.X,tileCur.Y].GetComponent<Tile>().type = 0;
+			}
+			else if (tiles[tileCur.X,tileCur.Y].GetComponent<SpriteRenderer>().sprite.name.ToString() == "d")
+			{
+				tiles[tileCur.X,tileCur.Y].GetComponent<Tile>().type = 3;
+			}
+			else if (tiles[tileCur.X,tileCur.Y].GetComponent<SpriteRenderer>().sprite.name.ToString() == "e")
+			{
+				tiles[tileCur.X,tileCur.Y].GetComponent<Tile>().type = 4;
+			}
+			else 
+			{
+				tiles[tileCur.X,tileCur.Y].GetComponent<Tile>().type = 5;
+			}
+		}
+
+
+
+
     }
 
     public void SwapSprite(SpriteRenderer render2, SpriteRenderer render)
@@ -209,278 +263,50 @@ public class BoardManager : MonoBehaviour {
         {
             for(int j=0; j < ySize; j++)
             {
-
-                if (i == 0)
-                {
-                    if (j == 0)
-                    {
-                        if (tiles[i + 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
+				
+						if (i > 0 && tiles[i - 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
                         {
                             tiles[i, j].GetComponent<Tile>().numadjc++;
                         }
-                        if (tiles[i, j+1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
+						if (i < xSize-1  && tiles[i + 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
                         {
                             tiles[i, j].GetComponent<Tile>().numadjc++;
                         }
-                    }
-                    else if (j == 6)
-                    {
-                        if (tiles[i + 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
+						if (j > 0 && tiles[i, j - 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
                         {
                             tiles[i, j].GetComponent<Tile>().numadjc++;
                         }
-                        if (tiles[i, j - 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
+						if (j < ySize-1 && tiles[i, j + 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
                         {
                             tiles[i, j].GetComponent<Tile>().numadjc++;
                         }
                     }
-                    else
-                    {
-                        if (tiles[i + 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i, j - 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i, j + 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                    }
-                }
-                else if (i == 6)
-                {
-                    if (j == 0)
-                    {
-                        if (tiles[i - 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i, j + 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                    }
-                    else if (j == 6)
-                    {
-                        if (tiles[i - 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i, j - 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                    }
-                    else
-                    {
-                        if (tiles[i - 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i, j - 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i, j + 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                    }
-                }
-                else
-                {
-                    if (j == 0)
-                    {
-                        if (tiles[i - 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i + 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i, j + 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                    }
-                    else if (j == 6)
-                    {
-                        if (tiles[i + 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i - 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i, j - 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                    }
-                    else
-                    {
-                        if (tiles[i - 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i + 1, j].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i, j - 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                        if (tiles[i, j + 1].GetComponent<Tile>().type == tiles[i, j].GetComponent<Tile>().type)
-                        {
-                            tiles[i, j].GetComponent<Tile>().numadjc++;
-                        }
-                    }
-                }
-            }
+                
         }//end for loops
         foreach(GameObject t in tiles)
         {
             if (t.GetComponent<Tile>().numadjc >= 2)
             {
                 t.GetComponent<Tile>().matchFound = true;
-                if (t.GetComponent<Tile>().X == 0)
-                {
-                    if (t.GetComponent<Tile>().Y == 0)
-                    {
-                        if (tiles[t.GetComponent<Tile>().X+1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
+                
+						if (t.GetComponent<Tile>().X > 0 && tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
+                        {
+                            tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
+                        }
+						if (t.GetComponent<Tile>().X < xSize-1 && tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
                         {
                             tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
                         }
-                        if (tiles[t.GetComponent<Tile>().X , t.GetComponent<Tile>().Y+1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X , t.GetComponent<Tile>().Y+1].GetComponent<Tile>().matchFound = true;
-                        }
-                    }
-                    else if (t.GetComponent<Tile>().Y == 6)
-                    {
-                        if (tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X , t.GetComponent<Tile>().Y-1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X , t.GetComponent<Tile>().Y-1].GetComponent<Tile>().matchFound = true;
-                        }
-                    }
-                    else
-                    {
-                        if (tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y - 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
+						if (t.GetComponent<Tile>().Y > 0 && tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y - 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
                         {
                             tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y - 1].GetComponent<Tile>().matchFound = true;
                         }
-                        if (tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y + 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
+						if (t.GetComponent<Tile>().Y < ySize-1 && tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y + 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
                         {
                             tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y + 1].GetComponent<Tile>().matchFound = true;
                         }
-                    }
-                }
-                else if (t.GetComponent<Tile>().X == 6)
-                {
-                    if (t.GetComponent<Tile>().Y == 0)
-                    {
-                        if (tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y + 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y + 1].GetComponent<Tile>().matchFound = true;
-                        }
-                    }
-                    else if (t.GetComponent<Tile>().Y == 6)
-                    {
-                        if (tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y - 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y - 1].GetComponent<Tile>().matchFound = true;
-                        }
-                    }
-                    else
-                    {
-                        if (tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y - 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y - 1].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y + 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y + 1].GetComponent<Tile>().matchFound = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (t.GetComponent<Tile>().Y == 0)
-                    {
-                        if (tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y + 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y + 1].GetComponent<Tile>().matchFound = true;
-                        }
-                    }
-                    else if (t.GetComponent<Tile>().Y == 6)
-                    {
-                        if (tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y - 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y - 1].GetComponent<Tile>().matchFound = true;
-                        }
-                    }
-                    else
-                    {
-                        if (tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X - 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X + 1, t.GetComponent<Tile>().Y].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y - 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y - 1].GetComponent<Tile>().matchFound = true;
-                        }
-                        if (tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y + 1].GetComponent<Tile>().type == tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y].GetComponent<Tile>().type)
-                        {
-                            tiles[t.GetComponent<Tile>().X, t.GetComponent<Tile>().Y + 1].GetComponent<Tile>().matchFound = true;
-                        }
-                    }
-                }
+                    
+                
             }
         }//end of foreach
         bool callcheck = false;
@@ -488,6 +314,7 @@ public class BoardManager : MonoBehaviour {
         {
             if (t.GetComponent<Tile>().matchFound)
             {
+				
                 Destroytile(t);
                 callcheck = true;
             }
@@ -500,151 +327,31 @@ public class BoardManager : MonoBehaviour {
 
     public void Destroytile(GameObject t)
     {
+		
         t.GetComponent<SpriteRenderer>().sprite = null;
 
     }
      public List<GameObject> adjacenttiles(int x, int y)
     {
         List<GameObject> returntiles=new List<GameObject>();
-        if (x == 0)
+        
+		if (x > 0 && tiles[x - 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
         {
-            if (y == 0)
-            {
-                if (tiles[x + 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x + 1, y]);
-                }
-                if (tiles[x, y + 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x , y+1]);
-                }
-            }
-            else if (y == 6)
-            {
-                if (tiles[x + 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x + 1, y]);
-                }
-                if (tiles[x, y - 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x, y-1]);
-                }
-            }
-            else
-            {
-                if (tiles[x + 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x + 1, y]);
-                }
-                if (tiles[x, y - 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x, y-1]);
-                }
-                if (tiles[x, y + 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x , y+1]);
-                }
-
-            }
+            returntiles.Add(tiles[x - 1, y]);
         }
-        else if (x == 6)
+		if (x < xSize &&tiles[x + 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
         {
-            if (y == 0)
-            {
-                if (tiles[x - 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x - 1, y]);
-                }
-                if (tiles[x, y + 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x , y+1]);
-                }
-            }
-            else if (y == 6)
-            {
-                if (tiles[x - 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x - 1, y]);
-                }
-                if (tiles[x, y - 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x, y-1]);
-                }
-            }
-            else
-            {
-                if (tiles[x - 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x - 1, y]);
-                }
-                if (tiles[x, y - 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x , y-1]);
-                }
-                if (tiles[x, y + 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x , y+1]);
-                }
-
-            }
+            returntiles.Add(tiles[x + 1, y]);
         }
-        else
+		if (y > 0 && tiles[x, y - 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
         {
-            if (y == 0)
-            {
-                if (tiles[x - 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x - 1, y]);
-                }
-                if (tiles[x + 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x + 1, y]);
-                }
-                if (tiles[x, y + 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x , y+1]);
-                }
-            }
-            else if (y == 6)
-            {
-                if (tiles[x + 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x + 1, y]);
-                }
-                if (tiles[x - 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x - 1, y]);
-                }
-                if (tiles[x, y- 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x , y-1]);
-                }
-            }
-            else
-            {
-                if (tiles[x - 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x - 1, y]);
-                }
-                if (tiles[x + 1, y].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x + 1, y]);
-                }
-                if (tiles[x, y - 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x , y-1]); 
-                }
-                if (tiles[x, y + 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
-                {
-                    returntiles.Add(tiles[x , y+1]);
-                }
-
-            }
-
-
+            returntiles.Add(tiles[x , y-1]); 
+        }
+		if (y < ySize && tiles[x, y + 1].GetComponent<Tile>().type == tiles[x, y].GetComponent<Tile>().type)
+        {
+            returntiles.Add(tiles[x , y+1]);
         }
 
-   
         return returntiles;
     }
 
