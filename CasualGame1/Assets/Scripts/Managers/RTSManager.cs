@@ -8,10 +8,14 @@ public class RTSManager : MonoBehaviour
     public GameObject friendly;
     public GameObject enemy;
     private Vector3[] laneLocs = new Vector3[7];
+    private Vector3[] laneLocs2 = new Vector3[7];
+    private float spawnTimer = 3.0f;
+    private float time = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        //friendly locs
         laneLocs[0] = new Vector3(0.0f, 4.3f, 0.0f);
         laneLocs[1] = new Vector3(0.0f, 2.9f, 0.0f);
         laneLocs[2] = new Vector3(0.0f, 1.4f, 0.0f);
@@ -19,16 +23,41 @@ public class RTSManager : MonoBehaviour
         laneLocs[4] = new Vector3(0.0f, -1.4f, 0.0f);
         laneLocs[5] = new Vector3(0.0f, -2.8f, 0.0f);
         laneLocs[6] = new Vector3(0.0f, -4.3f, 0.0f);
+        //enemy locs
+        laneLocs2[0] = new Vector3(8.0f, 4.3f, 0.0f);
+        laneLocs2[1] = new Vector3(8.0f, 2.9f, 0.0f);
+        laneLocs2[2] = new Vector3(8.0f, 1.4f, 0.0f);
+        laneLocs2[3] = new Vector3(8.0f, 0.0f, 0.0f);
+        laneLocs2[4] = new Vector3(8.0f, -1.4f, 0.0f);
+        laneLocs2[5] = new Vector3(8.0f, -2.8f, 0.0f);
+        laneLocs2[6] = new Vector3(8.0f, -4.3f, 0.0f);
+
+        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        time += Time.deltaTime;
+        if(time>=spawnTimer)
+        {
+            Instantiate(enemy, laneLocs2[Random.Range(0, 7)], new Quaternion());
+            time = 0.0f;
+        }
+
+        //testing
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Instantiate(enemy, laneLocs2[0], new Quaternion());
+          
+        }
+
     }
 
     public void Spawn()
     {
         Instantiate(friendly, laneLocs[typeToSpawn], new Quaternion());
+        
     }
 }
