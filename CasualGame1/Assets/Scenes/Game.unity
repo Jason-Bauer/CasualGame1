@@ -323,6 +323,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5e9d592e650212d4d93a144a3b6b0360, type: 3}
   - {fileID: 21300000, guid: 7740cfd77f1cd1d408137a7e8abec293, type: 3}
   - {fileID: 21300000, guid: 8600a5dbd1440c64f9bbf2442b74251b, type: 3}
+  emptyTiles: []
   A: {fileID: 1984942028783548, guid: e7605d8f2bb81bc4a9866a938bb5c422, type: 3}
   B: {fileID: 1808300627301432, guid: fb492ea628b1f3643a03da039fb768d6, type: 3}
   C: {fileID: 1253923897987798, guid: 2585891bcefefd245904a49b5c7d17bd, type: 3}
@@ -828,7 +829,7 @@ Transform:
   m_GameObject: {fileID: 1860975475}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.44, y: 0, z: 0}
-  m_LocalScale: {x: 1.05, y: 1.05, z: 0}
+  m_LocalScale: {x: 1.05, y: 1.05, z: -5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
