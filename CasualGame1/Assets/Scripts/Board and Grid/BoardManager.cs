@@ -17,6 +17,10 @@ public class BoardManager : MonoBehaviour
 
     public bool IsShifting { get; set; }
 
+    public GameObject RTSManager;
+    private int amtToSpawn = 0;
+    private int typeToSpawn = 1;
+
     void Start()
     {
         instance = GetComponent<BoardManager>();
@@ -300,6 +304,8 @@ public class BoardManager : MonoBehaviour
         {
             if (t.GetComponent<Tile>().matchFound)
             {
+                amtToSpawn++;
+                typeToSpawn = t.GetComponent<Tile>().type;
                 Destroytile(t);
                 callcheck = true;
             }
@@ -308,6 +314,11 @@ public class BoardManager : MonoBehaviour
         {
             FindNullTiles();
         }
+        RTSManager.GetComponent<RTSManager>().typeToSpawn = typeToSpawn;
+        RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (amtToSpawn / 3.0f));
+        RTSManager.GetComponent<RTSManager>().Spawn();
+        amtToSpawn = 0;
+
     }//end checkadj
 
     public void Destroytile(GameObject t)
