@@ -10,6 +10,7 @@ public class BoardManager : MonoBehaviour
     public List<Sprite> characters = new List<Sprite>();
     public List<GameObject> emptyTiles = new List<GameObject>();
     public GameObject A, B, C;
+    public int lane1, lane2, lane3, lane4, lane5, lane6, lane7;
     public GameObject tile;
     public int xSize, ySize;
 
@@ -33,8 +34,8 @@ public class BoardManager : MonoBehaviour
     {
         tiles = new GameObject[xSize, ySize];
 
-        float startX = transform.position.x;
-        float startY = transform.position.y;
+        float startX = 10;
+        float startY = 10;
 
         Sprite[] previousLeft = new Sprite[ySize];
         Sprite previousBelow = null;
@@ -49,7 +50,7 @@ public class BoardManager : MonoBehaviour
                 GameObject newTile = Instantiate(tile, new Vector3(startX + ((xOffset + .3f) * X), startY + ((yOffset + .3f) * Y), 0), tile.transform.rotation);
                 tiles[X, Y] = newTile;
                 newTile.transform.parent = transform;
-
+                newTile.transform.localPosition = new Vector3(startX + ((xOffset + 13f) * X), startY + ((yOffset + 13f) * Y), 0);
                 List<Sprite> possibleCharacters = new List<Sprite>();
                 possibleCharacters.AddRange(characters);
 
@@ -300,24 +301,123 @@ public class BoardManager : MonoBehaviour
             }
         }//end of foreach
         bool callcheck = false;
+        lane1 = 0;
+        lane2 = 0;
+        lane3 = 0;
+        lane4 = 0;
+        lane5 = 0;
+        lane6 = 0;
+        lane5 = 0;
         foreach (GameObject t in tiles)
         {
             if (t.GetComponent<Tile>().matchFound)
             {
-                amtToSpawn++;
-                typeToSpawn = t.GetComponent<Tile>().type;
+                //amtToSpawn++;
+                //typeToSpawn = t.GetComponent<Tile>().type;
                 Destroytile(t);
                 callcheck = true;
+
+                if (t.GetComponent<Tile>().type == 0)
+                {
+                    lane1++;
+                }
+                else if (t.GetComponent<Tile>().type == 1)
+                {
+                    lane2++;
+                }
+                else if (t.GetComponent<Tile>().type == 2)
+                {
+                    lane3++;
+                }
+                else if (t.GetComponent<Tile>().type == 3)
+                {
+                    lane4++;
+                }
+                else if (t.GetComponent<Tile>().type == 4)
+                {
+                    lane5++;
+                }
+                else if (t.GetComponent<Tile>().type == 5)
+                {
+                    lane6++;
+                }
+                else if (t.GetComponent<Tile>().type == 6)
+                {
+                    lane7++;
+                }
             }
         }
         if (callcheck)
         {
             FindNullTiles();
         }
-        RTSManager.GetComponent<RTSManager>().typeToSpawn = typeToSpawn;
-        RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (amtToSpawn / 3.0f));
-        RTSManager.GetComponent<RTSManager>().Spawn();
-        amtToSpawn = 0;
+        for (int i = 0; i < 7; i++)
+        {
+            if (i == 0)
+            {
+                if (lane1 > 0)
+                {
+                    RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
+                    RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane1 / 3.0f));
+                    RTSManager.GetComponent<RTSManager>().Spawn();
+                }
+            }
+            else if (i == 1)
+            {
+                if (lane2 > 0)
+                {
+                    RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
+                    RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane2 / 3.0f));
+                    RTSManager.GetComponent<RTSManager>().Spawn();
+                }
+            }
+            else if(i == 2)
+            {
+                if (lane3 > 0)
+                {
+                    RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
+                    RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane3 / 3.0f));
+                    RTSManager.GetComponent<RTSManager>().Spawn();
+                }
+            }
+            else if(i == 3)
+            {
+                if (lane4 > 0)
+                {
+                    RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
+                    RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane4 / 3.0f));
+                    RTSManager.GetComponent<RTSManager>().Spawn();
+                }
+            }
+            else if(i == 4)
+            {
+                if (lane5 > 0)
+                {
+                    RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
+                    RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane5 / 3.0f));
+                    RTSManager.GetComponent<RTSManager>().Spawn();
+                }
+            }
+            else  if (i == 5)
+            {
+                if (lane6 > 0)
+                {
+                    RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
+                    RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane6 / 3.0f));
+                    RTSManager.GetComponent<RTSManager>().Spawn();
+                }
+            }
+            else if (i == 6)
+            {
+                if (lane7 > 0)
+                {
+                    RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
+                    RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane7 / 3.0f));
+                    RTSManager.GetComponent<RTSManager>().Spawn();
+                }
+            }
+            //amtToSpawn = 0;
+        }
 
     }//end checkadj
 

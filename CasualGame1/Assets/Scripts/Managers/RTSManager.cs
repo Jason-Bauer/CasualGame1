@@ -16,21 +16,21 @@ public class RTSManager : MonoBehaviour
     void Start()
     {
         //friendly locs
-        laneLocs[0] = new Vector3(0.0f, 4.3f, 0.0f);
-        laneLocs[1] = new Vector3(0.0f, 2.9f, 0.0f);
-        laneLocs[2] = new Vector3(0.0f, 1.4f, 0.0f);
-        laneLocs[3] = new Vector3(0.0f, 0.0f, 0.0f);
-        laneLocs[4] = new Vector3(0.0f, -1.4f, 0.0f);
-        laneLocs[5] = new Vector3(0.0f, -2.8f, 0.0f);
-        laneLocs[6] = new Vector3(0.0f, -4.3f, 0.0f);
+        laneLocs[0] = new Vector3(0.0f, 4.45f, 0.0f);
+        laneLocs[1] = new Vector3(0.0f, 2.95f, 0.0f);
+        laneLocs[2] = new Vector3(0.0f, 1.45f, 0.0f);
+        laneLocs[3] = new Vector3(0.0f, -0.05f, 0.0f);
+        laneLocs[4] = new Vector3(0.0f, -1.45f, 0.0f);
+        laneLocs[5] = new Vector3(0.0f, -2.95f, 0.0f);
+        laneLocs[6] = new Vector3(0.0f, -4.5f, 0.0f);
         //enemy locs
-        laneLocs2[0] = new Vector3(8.0f, 4.3f, 0.0f);
-        laneLocs2[1] = new Vector3(8.0f, 2.9f, 0.0f);
-        laneLocs2[2] = new Vector3(8.0f, 1.4f, 0.0f);
-        laneLocs2[3] = new Vector3(8.0f, 0.0f, 0.0f);
-        laneLocs2[4] = new Vector3(8.0f, -1.4f, 0.0f);
-        laneLocs2[5] = new Vector3(8.0f, -2.8f, 0.0f);
-        laneLocs2[6] = new Vector3(8.0f, -4.3f, 0.0f);
+        laneLocs2[0] = new Vector3(8.0f, 4.45f, 0.0f);
+        laneLocs2[1] = new Vector3(8.0f, 2.95f, 0.0f);
+        laneLocs2[2] = new Vector3(8.0f, 1.45f, 0.0f);
+        laneLocs2[3] = new Vector3(8.0f, -0.05f, 0.0f);
+        laneLocs2[4] = new Vector3(8.0f, -1.45f, 0.0f);
+        laneLocs2[5] = new Vector3(8.0f, -2.95f, 0.0f);
+        laneLocs2[6] = new Vector3(8.0f, -4.5f, 0.0f);
 
         
 
