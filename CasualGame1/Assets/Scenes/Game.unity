@@ -1971,6 +1971,26 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 82362001097896282, guid: 21f51af2919c5ca42afa49762724faa9,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 386b8d449a45a6a49a7d8e6ae9a143c5, type: 3}
+    - target: {fileID: 82362001097896282, guid: 21f51af2919c5ca42afa49762724faa9,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 82362001097896282, guid: 21f51af2919c5ca42afa49762724faa9,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 82362001097896282, guid: 21f51af2919c5ca42afa49762724faa9,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21f51af2919c5ca42afa49762724faa9, type: 3}
 --- !u!1 &2112214656
