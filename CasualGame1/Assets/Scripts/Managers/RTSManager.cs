@@ -11,6 +11,7 @@ public class RTSManager : MonoBehaviour
     private Vector3[] laneLocs2 = new Vector3[7];
     private float spawnTimer = 3.0f;
     private float time = 0f;
+    public bool spawning = true;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,7 @@ public class RTSManager : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        if(time>=spawnTimer)
+        if(time>=spawnTimer&&spawning)
         {
             Instantiate(enemy, laneLocs2[Random.Range(0, 7)], new Quaternion());
             time = 0.0f;

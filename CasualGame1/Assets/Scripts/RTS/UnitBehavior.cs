@@ -14,6 +14,7 @@ public class UnitBehavior : MonoBehaviour
     public bool switcher = true;
     public bool friendly;
     public GameObject parent;
+    public GameObject GMP, P1, P2, P3;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +62,14 @@ public class UnitBehavior : MonoBehaviour
                 switcher = true;
 
             }
+        }
+
+        if(bases && friendly && health <= 0)
+        {
+            GMP.SetActive(true);
+            P1.SetActive(false);
+            P2.SetActive(false);
+            P3.GetComponent<RTSManager>().spawning = false;
         }
     }
     private IEnumerator WaitAndSwitch(float waitTime)
