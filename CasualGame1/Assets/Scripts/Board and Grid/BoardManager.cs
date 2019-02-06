@@ -16,6 +16,8 @@ public class BoardManager : MonoBehaviour
 
     public GameObject[,] tiles;
 
+    public bool canSelect = true;
+
     public bool IsShifting { get; set; }
 
     public GameObject RTSManager;
@@ -107,10 +109,14 @@ public class BoardManager : MonoBehaviour
 
     public void FindNullTiles()
     {
-        for (int x = xSize - 1; x >= 0; x--)
+        canSelect = false;
+        for (int y = ySize - 1; y >= 0; y--)
         {
-            for (int y = ySize - 1; y >= 0; y--)
-            {
+            for (int x = xSize - 1; x >= 0; x--)
+                {
+            
+                tiles[x, y].GetComponent<BoxCollider2D>().enabled = false;
+
                 if (tiles[x, y].GetComponent<SpriteRenderer>().sprite == null)
                 {
                     emptyTiles.Add(tiles[x, y]);
@@ -119,33 +125,39 @@ public class BoardManager : MonoBehaviour
             }
         }
         StartCoroutine(ShiftDown(emptyTiles));
-
+        
     }
 
     private IEnumerator ShiftDown(List<GameObject> Movtiles)
     {
         //Make tiles fall
         //Tile tileCur = tiles [x, y].GetComponent<Tile> ();
-        for (int j = 0; j < Movtiles.Count; j++)
+        for (int j = 0; j < emptyTiles.Count; j++)
         {
-            Tile tileCur = Movtiles[j].GetComponent<Tile>();
-            for (int i = tileCur.Y; i < ySize - 1; i++)
-            {
-                tileCur.GetComponent<SpriteRenderer>().sprite = tiles[tileCur.X, i + 1].GetComponent<SpriteRenderer>().sprite;
-                tileCur.GetComponent<Tile>().type = tiles[tileCur.X, i + 1].GetComponent<Tile>().type;
+            Tile tileCur = emptyTiles[j].GetComponent<Tile>();
+            
+                if (tileCur.Y < ySize-1 && tiles[tileCur.X, tileCur.Y + 1].GetComponent<SpriteRenderer>().sprite != null) {
+                    for (int i = tileCur.Y; i < ySize - 1; i++)
+                    {
+                        
+                        tileCur.GetComponent<SpriteRenderer>().sprite = tiles[tileCur.X, i + 1].GetComponent<SpriteRenderer>().sprite;
+                        tileCur.GetComponent<Tile>().type = tiles[tileCur.X, i + 1].GetComponent<Tile>().type;
 
-                tiles[tileCur.X, i + 1].GetComponent<SpriteRenderer>().sprite = null;
-                tiles[tileCur.X, i + 1].GetComponent<Tile>().type = -1;
+                        tiles[tileCur.X, i + 1].GetComponent<SpriteRenderer>().sprite = null;
+                        tiles[tileCur.X, i + 1].GetComponent<Tile>().type = -1;
 
-                tileCur = tiles[tileCur.X, i + 1].GetComponent<Tile>();
-                emptyTiles[j] = tileCur.gameObject;
-                //SwapSprite (tiles [x, y].GetComponent<SpriteRenderer> (), tiles [x, y + 1].GetComponent<SpriteRenderer> ());
-                yield return new WaitForSeconds(.07f);
+                        tileCur = tiles[tileCur.X, i + 1].GetComponent<Tile>();
+                        emptyTiles[j] = tileCur.gameObject;
+                        //SwapSprite (tiles [x, y].GetComponent<SpriteRenderer> (), tiles [x, y + 1].GetComponent<SpriteRenderer> ());
 
-            }
+
+                    }
+                    yield return new WaitForSeconds(0.7f);
+                }
+            
         }
-
-
+        yield return new WaitForSeconds(0.7f);
+        
         emptyTiles.Clear();
         for (int x = xSize - 1; x >= 0; x--)
         {
@@ -229,8 +241,19 @@ public class BoardManager : MonoBehaviour
            yield return new WaitForSeconds(.07f);
 
         }
+        
+
+        canSelect = true;
+        for (int x = xSize - 1; x >= 0; x--)
+        {
+            for (int y = ySize - 1; y >= 0; y--)
+            {
+                tiles[x, y].GetComponent<BoxCollider2D>().enabled = true;
 
 
+            }
+        }
+        
     }
 
 
@@ -423,7 +446,7 @@ public class BoardManager : MonoBehaviour
 
     public void Destroytile(GameObject t)
     {
-
+        t.GetComponent<Tile>().type = -1;
         t.GetComponent<ParticleSystem>().Play();
         t.GetComponent<SpriteRenderer>().sprite = null;
     }
