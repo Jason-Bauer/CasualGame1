@@ -152,11 +152,11 @@ public class BoardManager : MonoBehaviour
 
 
                     }
-                    yield return new WaitForSeconds(0.7f);
+                    yield return new WaitForSeconds(0.07f);
                 }
             
         }
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.07f);
         
         emptyTiles.Clear();
         for (int x = xSize - 1; x >= 0; x--)
@@ -446,7 +446,7 @@ public class BoardManager : MonoBehaviour
 
     public void Destroytile(GameObject t)
     {
-        t.GetComponent<Tile>().type = -1;
+        //t.GetComponent<Tile>().type = -1;
         t.GetComponent<ParticleSystem>().Play();
         t.GetComponent<SpriteRenderer>().sprite = null;
     }
