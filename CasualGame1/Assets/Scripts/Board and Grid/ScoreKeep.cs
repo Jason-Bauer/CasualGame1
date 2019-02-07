@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreKeep : MonoBehaviour
 {
+    public GameObject endscore;
     public int score = 0;
    
     // Start is called before the first frame update
@@ -17,5 +18,6 @@ public class ScoreKeep : MonoBehaviour
     void Update()
     {
         this.gameObject.GetComponent<Text>().text = "Score: " + score;
+        endscore.gameObject.GetComponent<Text>().text =  score.ToString();
     }
 }
