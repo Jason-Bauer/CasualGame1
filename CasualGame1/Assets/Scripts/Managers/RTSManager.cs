@@ -58,6 +58,7 @@ public class RTSManager : MonoBehaviour
 
     public void Spawn()
     {
+        Debug.Log("SPAWN");
         Instantiate(friendly, laneLocs[typeToSpawn], new Quaternion());
         
     }
