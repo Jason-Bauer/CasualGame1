@@ -57,8 +57,9 @@ public class GameManager : MonoBehaviour {
 
 	// Load a scene with a specified string name
 	public void LoadScene(string sceneName) {
-		instance.StartCoroutine(Load(sceneName));
-		instance.StartCoroutine(FadeOut(instance.faderObj, instance.faderImg));
+        SceneManager.LoadScene(sceneName);
+		//instance.StartCoroutine(Load(sceneName));
+		//instance.StartCoroutine(FadeOut(instance.faderObj, instance.faderImg));
 	}
 
 	// Reload the current scene

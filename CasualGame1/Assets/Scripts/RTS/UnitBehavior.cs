@@ -26,8 +26,9 @@ public class UnitBehavior : MonoBehaviour
             healthBar = gameObject.GetComponentsInChildren<HealthBar>()[0];
             health = 100;
             attackPower = 20;
+            this.gameObject.transform.parent = GameObject.Find("Panel (3)").transform;
         }
-        this.gameObject.transform.parent = GameObject.Find("Panel (3)").transform;
+       // this.gameObject.transform.parent = GameObject.Find("Panel (3)").transform;
         Score =  GameObject.Find("Score");
     }
 
