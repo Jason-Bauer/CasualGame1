@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine;
+using UnityEngine.UI;
+
 
 public class UnitBehavior : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class UnitBehavior : MonoBehaviour
     public bool switcher = true;
     public bool friendly;
     public GameObject parent;
-    public GameObject GMP, P1, P2, P3;
+    public GameObject GMP, P1, P2, P3,Score;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class UnitBehavior : MonoBehaviour
             attackPower = 20;
         }
         this.gameObject.transform.parent = GameObject.Find("Panel (3)").transform;
-
+        Score =  GameObject.Find("Score");
     }
 
     // Update is called once per frame
@@ -100,6 +101,10 @@ public class UnitBehavior : MonoBehaviour
             }
             else
             {
+                if(friendly&& other.gameObject.GetComponent<UnitBehavior>().bases && !other.gameObject.GetComponent<UnitBehavior>().friendly)
+                {
+                    Score.GetComponent<ScoreKeep>().score += 10;
+                }
                 health -= other.gameObject.GetComponent<UnitBehavior>().attackPower;
             }
         }

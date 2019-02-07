@@ -1,6 +1,7 @@
 ﻿
 
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,6 +14,7 @@ public class BoardManager : MonoBehaviour
     public int lane1, lane2, lane3, lane4, lane5, lane6, lane7;
     public GameObject tile;
     public int xSize, ySize;
+    public GameObject score;
 
     public GameObject[,] tiles;
 
@@ -383,6 +385,7 @@ public class BoardManager : MonoBehaviour
                     RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
                     RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane1 / 3.0f));
                     RTSManager.GetComponent<RTSManager>().Spawn();
+                    score.GetComponent<ScoreKeep>().score += lane1;
                 }
             }
             else if (i == 1)
@@ -392,6 +395,7 @@ public class BoardManager : MonoBehaviour
                     RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
                     RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane2 / 3.0f));
                     RTSManager.GetComponent<RTSManager>().Spawn();
+                    score.GetComponent<ScoreKeep>().score += lane2;
                 }
             }
             else if(i == 2)
@@ -401,6 +405,7 @@ public class BoardManager : MonoBehaviour
                     RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
                     RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane3 / 3.0f));
                     RTSManager.GetComponent<RTSManager>().Spawn();
+                    score.GetComponent<ScoreKeep>().score += lane3;
                 }
             }
             else if(i == 3)
@@ -410,6 +415,7 @@ public class BoardManager : MonoBehaviour
                     RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
                     RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane4 / 3.0f));
                     RTSManager.GetComponent<RTSManager>().Spawn();
+                    score.GetComponent<ScoreKeep>().score += lane4;
                 }
             }
             else if(i == 4)
@@ -419,6 +425,7 @@ public class BoardManager : MonoBehaviour
                     RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
                     RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane5 / 3.0f));
                     RTSManager.GetComponent<RTSManager>().Spawn();
+                    score.GetComponent<ScoreKeep>().score += lane5;
                 }
             }
             else  if (i == 5)
@@ -428,6 +435,7 @@ public class BoardManager : MonoBehaviour
                     RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
                     RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane6 / 3.0f));
                     RTSManager.GetComponent<RTSManager>().Spawn();
+                    score.GetComponent<ScoreKeep>().score += lane6;
                 }
             }
             else if (i == 6)
@@ -437,8 +445,10 @@ public class BoardManager : MonoBehaviour
                     RTSManager.GetComponent<RTSManager>().typeToSpawn = i;
                     RTSManager.GetComponent<RTSManager>().friendly.GetComponent<UnitBehavior>().health = Mathf.Ceil(10.0f + (lane7 / 3.0f));
                     RTSManager.GetComponent<RTSManager>().Spawn();
+                    score.GetComponent<ScoreKeep>().score += lane7;
                 }
             }
+
             //amtToSpawn = 0;
         }
 
