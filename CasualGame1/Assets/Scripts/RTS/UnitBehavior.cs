@@ -113,7 +113,7 @@ public class UnitBehavior : MonoBehaviour
                 }
                 health -= other.gameObject.GetComponent<UnitBehavior>().attackPower;
                 print(health);
-                healthBar.SetSize(health / 100.0f);
+                healthBar.SetBaseSize(health / 100.0f);
             }
         }
         //bump = false;
