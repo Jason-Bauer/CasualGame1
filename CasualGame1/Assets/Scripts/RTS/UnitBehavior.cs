@@ -28,6 +28,11 @@ public class UnitBehavior : MonoBehaviour
             attackPower = 20;
             this.gameObject.transform.parent = GameObject.Find("Panel (3)").transform;
         }
+        else
+        {
+            healthBar = gameObject.GetComponentsInChildren<HealthBar>()[0];
+            health = 100;
+        }
        // this.gameObject.transform.parent = GameObject.Find("Panel (3)").transform;
         Score =  GameObject.Find("Score");
     }
@@ -107,6 +112,8 @@ public class UnitBehavior : MonoBehaviour
                     Score.GetComponent<ScoreKeep>().score += 10;
                 }
                 health -= other.gameObject.GetComponent<UnitBehavior>().attackPower;
+                print(health);
+                healthBar.SetSize(health / 100.0f);
             }
         }
         //bump = false;

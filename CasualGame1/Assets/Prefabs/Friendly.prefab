@@ -102,6 +102,12 @@ MonoBehaviour:
   bump: 0
   switcher: 1
   friendly: 1
+  parent: {fileID: 0}
+  GMP: {fileID: 0}
+  P1: {fileID: 0}
+  P2: {fileID: 0}
+  P3: {fileID: 0}
+  Score: {fileID: 0}
 --- !u!61 &3275184320000817171
 BoxCollider2D:
   m_ObjectHideFlags: 0
